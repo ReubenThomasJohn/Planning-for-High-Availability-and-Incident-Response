@@ -35,6 +35,7 @@
 5. Setup Kubernetes config so you can ping the EKS cluster
    - `aws eks --region us-east-2 update-kubeconfig --name udacity-cluster`
    - Change kubernetes context to the new AWS cluster
+     - See cluster names using: `aws eks list-clusters`
      - `kubectl config use-context <cluster_name>`
        - e.g ` arn:aws:eks:us-east-2:139802095464:cluster/udacity-cluster`
     - `kubectl create namespace monitoring`
