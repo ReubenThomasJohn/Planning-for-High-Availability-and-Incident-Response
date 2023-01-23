@@ -6,18 +6,19 @@
 ## Servers and Clusters
 
 ### Table 1.1 Summary
-| Asset                | Purpose                                                                               | Size                                                                   | Qty                                                             | DR                                                                                                           |
-|----------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-|
-| EC2 Machine          | Hosts the Ubuntu Web Server with a Flask App                                          | t3.micro                                                               | 3x2 (one in each zone)                                          | 3 in us-west-1 and 3 in us-east-2                                                                            |
-| EKS Cluster          | Hosts the control plane and worker nodes for the Ubuntu Web Server's monitoring stack | -                                                                      | 2 Clusters                                                      | 1 in us-west-1 and 1 in is-east-2                                                                            |
-| EKS Cluster nodes    | Worker nodes tied to cluster                                                          | t3.medium                                                              | 2x2 (two in each cluster)                                       | 2 in us-west-1 and 2 in us-east-2                                                                            |
-| VPC                  | Private cloud network to host resources. Has IPs in multiple AZs                      | -                                                                      | 2                                                               | 1 in us-west-1 and 1 in us-east-2                                                                            |
-| RDS Cluster          | AWS Managed SQL Database cluster                                                      | -                                                                      | 2                                                               | 1 in us-west-1 and 1 in us-east-2                                                                            |
-| RDS Aurora Instances | Faster replication compared to RDS                                                    | db.t2.small                                                            | 4                                                               | 2 in us-west-1 and 2 in us-east-2                                                                            |
-| Key Pairs            | Permissions to connect to instances                                                   |                                                                        |                                                                 |                                                                                                              |
-| S3 Bucket            | Hosts terraform backend configurations                                                |                                                                        | 2                                                               | 1 in us-west-1 and 1 in us-east-2                                                                            |
-|
+| Asset                | Purpose                                                                               | Size        | Qty                       | DR                                |
+|----------------------|---------------------------------------------------------------------------------------|-------------|---------------------------|-----------------------------------|
+|                      |                                                                                       |             |                           |                                   |
+| EC2 Machine          | Hosts the Ubuntu Web Server with a Flask App                                          | t3.micro    | 3x2 (one in each zone)    | 3 in us-west-1 and 3 in us-east-2 |
+| EKS Cluster          | Hosts the control plane and worker nodes for the Ubuntu Web Server's monitoring stack | -           | 2 Clusters                | 1 in us-west-1 and 1 in is-east-2 |
+| EKS Cluster nodes    | Worker nodes tied to cluster                                                          | t3.medium   | 2x2 (two in each cluster) | 2 in us-west-1 and 2 in us-east-2 |
+| VPC                  | Private cloud network to host resources. Has IPs in multiple AZs                      | -           | 2                         | 1 in us-west-1 and 1 in us-east-2 |
+| RDS Cluster          | AWS Managed SQL Database cluster                                                      | -           | 2                         | 1 in us-west-1 and 1 in us-east-2 |
+| RDS Aurora Instances | Faster replication compared to RDS                                                    | db.t2.small | 4                         | 2 in us-west-1 and 2 in us-east-2 |
+| Key Pairs            | Permissions to connect to instances                                                   | -           |                           |                                   |
+| S3 Bucket            | Hosts terraform backend configurations                                                | -           | 2                         | 1 in us-west-1 and 1 in us-east-2 |
+| ALB                  | Used to direct traffic to AWS resources                                               | -           | 2                         | 1 in us-west-1 and 1 in us-east-2 |
+
 
 ### Descriptions
 1. EC2: 
@@ -34,6 +35,9 @@ Virtual private cloud gives access to IPs and subnets, and is used to network ou
 Balances traffic between resources.
 7. Key Pairs:
 Hold the keys to access EC2 instances. 
+8. ALB
+Routes and directs traffic to the EC2 instances. 
+
 ## DR Plan
 ### Pre-Steps:
 1. Take note of current architecture and available resources.
